@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Weather_MVVM_new</string>
+    <string name="title">Weather</string>
+    <string name="request">Input city</string>
+    <string name="getWeather">GET</string>
+    <string name="getHistoty">HISTORY</string>
+    <string name="temp">Temperature:  </string>
+    <string name="cond">Condition:  </string>
+    <string name="press">Pressure:  </string>
+</resources>
