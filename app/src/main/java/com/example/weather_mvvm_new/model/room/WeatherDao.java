@@ -1,5 +1,6 @@
 package com.example.weather_mvvm_new.model.room;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -17,7 +18,18 @@ public interface WeatherDao {
 public void addInfoWeather(MyModel myModel);
 //    отримати весь список
     @Query("SELECT * FROM weather")
-    List<MyModel>getInfoAllWeather();
+    LiveData<List<MyModel>>getInfoAllWeather();
+//    List<MyModel>getInfoAllWeather();
+
+
+
+
+
+
+
+
+
+
 //    видалити
     @Delete
     void delete(MyModel myModel);
