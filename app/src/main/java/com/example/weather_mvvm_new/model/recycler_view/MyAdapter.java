@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weather_mvvm_new.R;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     List<MyModel> item;
+//    List<MyModel> item;
 
     public MyAdapter(List<MyModel> item) {
         this.item = item;
