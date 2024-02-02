@@ -20,6 +20,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -30,19 +32,15 @@ public MutableLiveData<Boolean>errorHandler=new MutableLiveData<>();
 
     //TODO @inject (Dagger),
     private MyRepo myRepo;
-    private WeatherDao weatherDao;
+
 
     //TODO hilt
-    private final LiveData<List<MyModel>> allWeather;
-    public MyViewModel() {
-        myRepo=new MyRepo();
-//        weatherDao= App.getDatabase().getWeatherDao();
-        allWeather= myRepo.getAllWeather();
+//    private final LiveData<List<MyModel>> allWeather;
+    @Inject
+    public MyViewModel(MyRepo myRepo) {
+        this.myRepo=myRepo;
     }
 
-    public LiveData<List<MyModel>> getAllWeather() {
-        return allWeather;
-    }
     public void insert(MyModel model){
         myRepo.insert(model);
     }
@@ -95,7 +93,7 @@ public MutableLiveData<Boolean>errorHandler=new MutableLiveData<>();
         });
     }
     public void getInfo(LifecycleOwner lifecycleOwner, RecyclerView recyclerView){
-        getAllWeather().observe(lifecycleOwner, new androidx.lifecycle.Observer<List<MyModel>>() {
+        myRepo.getAllWeather().observe(lifecycleOwner, new androidx.lifecycle.Observer<List<MyModel>>() {
             @Override
             public void onChanged(List<MyModel> weathers) {
                 // Оновлення списку або виклик інших методів для обробки даних

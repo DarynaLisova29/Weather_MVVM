@@ -11,6 +11,8 @@ import com.example.weather_mvvm_new.model.room.WeatherDatabase;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Scheduler;
@@ -21,6 +23,7 @@ public class MyRepo {
     private WeatherDao weatherDao;
     private LiveData<List<MyModel>> allWeather;
 
+    @Inject
     public MyRepo() {
         weatherDao=App.getDatabase().getWeatherDao();
         allWeather=weatherDao.getInfoAllWeather();

@@ -14,14 +14,19 @@ import android.widget.Toast;
 
 import com.example.weather_mvvm_new.databinding.ActivityMainBinding;
 import com.example.weather_mvvm_new.model.MyModel;
+import com.example.weather_mvvm_new.view_model.DaggerMyViewModelComponent;
 import com.example.weather_mvvm_new.view_model.MyViewModel;
+import com.example.weather_mvvm_new.view_model.MyViewModelComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     String city;
+    @Inject
     MyViewModel myViewModel;
 
     List<MyModel>list=new ArrayList<>();
@@ -37,7 +42,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         View view=binding.getRoot();
         setContentView(view);
-        myViewModel=new ViewModelProvider(this).get(MyViewModel.class);
+
+        MyViewModelComponent myViewModelComponent= DaggerMyViewModelComponent.create();
+        myViewModelComponent.inject(this);
+//       TODO Для чого це!!!!!!!!!
+//        myViewModel=new ViewModelProvider(this).get(MyViewModel.class);
+
+
 //       визначаємо recyclerView
         recyclerView=findViewById(R.id.recycler);
 
