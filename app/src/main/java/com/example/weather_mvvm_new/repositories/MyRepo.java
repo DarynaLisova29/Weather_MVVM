@@ -24,9 +24,11 @@ public class MyRepo {
     private LiveData<List<MyModel>> allWeather;
 
     @Inject
-    public MyRepo() {
-        weatherDao=App.getDatabase().getWeatherDao();
-        allWeather=weatherDao.getInfoAllWeather();
+    public MyRepo(WeatherDao weatherDao, LiveData<List<MyModel>>allWeather) {
+        this.weatherDao=weatherDao;
+        this.allWeather=allWeather;
+//        weatherDao=App.getDatabase().getWeatherDao();
+//        allWeather=weatherDao.getInfoAllWeather();
     }
 
     public Observable<MyModel>getWeather(String city, String metric){
