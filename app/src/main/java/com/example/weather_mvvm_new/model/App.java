@@ -9,6 +9,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.weather_mvvm_new.di.AppComponent;
+import com.example.weather_mvvm_new.di.DaggerAppComponent;
+import com.example.weather_mvvm_new.di.MyRepoModule;
 import com.example.weather_mvvm_new.model.room.WeatherDatabase;
 
 import okhttp3.OkHttpClient;
@@ -23,6 +26,9 @@ public class App extends Application {
     ConnectivityManager connectivityManager;
     public static NetworkInfo networkInfo;
     private static WeatherDatabase weatherDatabase;
+
+    public static AppComponent appComponent;
+
     OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 //    HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 
@@ -62,6 +68,7 @@ public class App extends Application {
         myApi=retrofit.create(MyApi.class);
         weatherDatabase=Room.databaseBuilder(getApplicationContext(),
                 WeatherDatabase.class,"WeatherDB").fallbackToDestructiveMigration().build();
+       appComponent= DaggerAppComponent.builder().myRepoModule(new MyRepoModule()).build();
     }
     public static MyApi getMyApi(){
         return myApi;
