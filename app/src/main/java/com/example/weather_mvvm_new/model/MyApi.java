@@ -6,6 +6,7 @@ import retrofit2.http.Query;
 
 public interface MyApi {
     @GET("weather")
-    Observable<MyModel> getWeather(@Query("q") String city, @Query("appid") String apiKey, @Query("units") String units);
+    Observable<MyModel> getWeather(@Query("q") String city, @Query("appid") String apiKey,
+                                   @Query("units") String units);
 
 }
