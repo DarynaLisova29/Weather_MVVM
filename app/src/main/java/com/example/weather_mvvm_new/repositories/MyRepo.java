@@ -23,7 +23,7 @@ public class MyRepo {
     private WeatherDao weatherDao;
     private LiveData<List<MyModel>> allWeather;
 
-    @Inject
+
     public MyRepo(WeatherDao weatherDao, LiveData<List<MyModel>>allWeather) {
         this.weatherDao=weatherDao;
         this.allWeather=allWeather;
