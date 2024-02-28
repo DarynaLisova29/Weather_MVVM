@@ -1,18 +1,14 @@
 package com.example.weather_mvvm_new.view_model;
 
-import android.app.Activity;
-
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.weather_mvvm_new.MainActivity;
 import com.example.weather_mvvm_new.model.App;
 import com.example.weather_mvvm_new.model.MyModel;
 import com.example.weather_mvvm_new.model.recycler_view.MyAdapter;
-import com.example.weather_mvvm_new.model.room.WeatherDao;
 import com.example.weather_mvvm_new.repositories.MyRepo;
 
 import java.time.LocalDateTime;
@@ -27,23 +23,16 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 public class MyViewModel extends ViewModel {
-private MutableLiveData<MyModel>model=new MutableLiveData<>();
-public MutableLiveData<Boolean>errorHandler=new MutableLiveData<>();
 
-    //TODO @inject (Dagger),
-    private MyRepo myRepo;
-
-
-    //TODO hilt
-//    private final LiveData<List<MyModel>> allWeather;
+    public MyViewModel() {
+        App.appComponent.inject(this);
+    }
+    private MutableLiveData<MyModel>model=new MutableLiveData<>();
+    public MutableLiveData<Boolean>errorHandler=new MutableLiveData<>();
     @Inject
-    public MyViewModel(MyRepo myRepo) {
-        this.myRepo=myRepo;
-    }
+    public MyRepo myRepo;
 
-    public void insert(MyModel model){
-        myRepo.insert(model);
-    }
+    public void insert(MyModel model){myRepo.insert(model);}
 
     public MutableLiveData<MyModel> getModel() {
         return model;
@@ -92,14 +81,8 @@ public MutableLiveData<Boolean>errorHandler=new MutableLiveData<>();
             }
         });
     }
-    public void getInfo(LifecycleOwner lifecycleOwner, RecyclerView recyclerView){
-        myRepo.getAllWeather().observe(lifecycleOwner, new androidx.lifecycle.Observer<List<MyModel>>() {
-            @Override
-            public void onChanged(List<MyModel> weathers) {
-                // Оновлення списку або виклик інших методів для обробки даних
-                recyclerView.setAdapter(new MyAdapter(weathers));
-            }
-        });
+    public LiveData<List<MyModel>> getAllWeatherLifeData() {
+        return myRepo.getAllWeather();
     }
 
 }
