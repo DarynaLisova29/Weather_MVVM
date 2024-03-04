@@ -18,18 +18,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.hilt.EntryPoint;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-
+@HiltViewModel
 public class MyViewModel extends ViewModel {
-
-    public MyViewModel() {
-        App.appComponent.inject(this);
+    @Inject
+    public MyViewModel(MyRepo myRepo) {
+        this.myRepo=myRepo;
     }
     private MutableLiveData<MyModel>model=new MutableLiveData<>();
     public MutableLiveData<Boolean>errorHandler=new MutableLiveData<>();
-    @Inject
+//    @Inject
     public MyRepo myRepo;
 
     public void insert(MyModel model){myRepo.insert(model);}
