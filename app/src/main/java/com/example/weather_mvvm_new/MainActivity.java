@@ -22,7 +22,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     MyViewModel myViewModel;
     ActivityMainBinding binding;
