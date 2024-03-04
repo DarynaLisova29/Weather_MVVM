@@ -9,10 +9,15 @@ import com.example.weather_mvvm_new.repositories.MyRepo;
 
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.components.SingletonComponent;
 
 @Module
+@InstallIn(SingletonComponent.class)
 public class MyRepoModule {
     @Provides
     public WeatherDao provideWeatherDao(){
